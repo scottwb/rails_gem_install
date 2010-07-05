@@ -1,6 +1,39 @@
-= rails_gem_install
+= Overview of rails_gem_install
 
-Description goes here.
+Installs the gem dependencies of your Rails 2 project where <tt>rake gems:install</tt> fails.
+
+Using <tt>rake gems:install</tt> has a number of problems:
+
+* It depends on Rails. You have to manually install Rails before you can use <tt>rake gems:install</tt>
+* It depends on your Rails environment. This can create a circular dependency where some file (particularly vendored plugins/gems) can require a gem to be loaded before the task to install it runs.
+* Most of the time it just doesn't work. Adding a new <tt>config.gem</tt> requirement, then running <tt>rake gems:install</tt> will fail with a complaint that it is missing the gem you are expecting it to install for you.
+
+This tool aims to solve these problems by providing a tool that is NOT dependent on Rails or the Rail apps's environment in order to determine and install the dependencies.
+
+For more background and a brief description of how it works, check out the blog post at http://sleeplesscoding.blogspot.com/2010/07/install-rails-apps-dependencies-where.html
+
+== Installation
+
+    gem install rails_gem_install
+
+== Usage
+
+<b>IMPORTANT:</b> You must run this command from the +RAILS_ROOT+ of your Rails 2 app.
+
+    cd my_rails_app
+    RAILS_ENV=production rails_gem_install
+
+This will install all the gem dependencies for running your Rails app under the specified environment, so you may want to do this multiple times for multiple environments. For example, you may want to do this using your test environment too, if you have additional <tt>config.gem</tt> configurations in <tt>config/environments/test.rb</tt>.
+
+Note that this will run <tt>gem install</tt> commands, so run as root/sudo if you want them to be installed that way.
+
+== Caveats
+
+This has only been tested for a Rails 2.3.5 project where there was no pre-existing Rails installation or other gems, and incrementally after that as the <tt>config.gem</tt> configuration changes. There may be some corner-case dependencies I may have missed.
+
+== Credits
+
+Inspired by this gist[http://gist.github.com/136461] from troelskn[http://github.com/troelskn].
 
 == Note on Patches/Pull Requests
  

@@ -1,5 +1,11 @@
 RAILS_ENV  = ENV['RAILS_ENV']
 RAILS_ROOT = Dir.pwd
+
+# A dummy implementation of the Rails module to implement a few things
+# we need from Rails in order to compute and install dependencies, plus
+# a simplified implementation of the <tt>config.gem</tt> installation
+# mechanism. This is all so we can do the parts of <tt>rake gems:install</tt>
+# from Rails that we need, without depending on Rails to do it.
 module Rails
   def self.root
     RAILS_ROOT
