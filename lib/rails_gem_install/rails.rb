@@ -12,6 +12,7 @@ module Rails
       cmd = "gem install rails --version '#{$1}'"
       puts cmd
       system cmd
+      Gem::refresh
     end
   end
 
