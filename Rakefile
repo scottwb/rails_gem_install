@@ -5,12 +5,12 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "rails_gem_install"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "scottwb@scottwb.net"
+    gem.summary = %Q{Installs gem dependencies for a Rails 2 project.}
+    gem.description = %Q{Installs gem dependencies for a Rails 2 project where `rake gems:install` fails. I.e.: breaks the circular dependencies of requiring Rails and anything your vendored gems/plugins require in order to install these requirements.}
+    gem.email = "scottwb@gmail.com"
     gem.homepage = "http://github.com/scottwb/rails_gem_install"
     gem.authors = ["Scott W. Bradley"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_development_dependency "shoulda", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
