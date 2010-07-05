@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+ENV['RAILS_ENV'] ||= 'production'
+
+require 'rubygems'
+require 'rails_gem_install'
+
+Rails.ensure_installation_version
+Rails.install_gems
+RailsGemInstaller.install_gems
