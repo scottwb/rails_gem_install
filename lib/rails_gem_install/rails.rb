@@ -40,6 +40,19 @@ module Rails
       # first.
       require 'rails/gem_dependency'
 
+      # On Mac OS X, if we are not running as root, we have to ensure that
+      # all the gem install commands are passed the --user-install option
+      # otherwise they will fail to install. We do this by monkey-patching
+      # the Rails::GemDependency class we're using.
+      if (RUBY_PLATFORM =~ /darwin/i) && (Process.euid != 0)
+        Rails::GemDependency.class_eval do
+          alias :install_command_without_user_install :install_command
+          def install_command
+            install_command_without_user_install << "--user-install"
+          end
+        end
+      end
+
       puts "[Ensuring config.gem gems are all installed]"
       config = self.new
       cmds = File.readlines("config/environment.rb")

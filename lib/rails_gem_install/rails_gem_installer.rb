@@ -49,6 +49,13 @@ class RailsGemInstaller
     if gemspec[:version]
       cmd << " --version '#{gemspec[:version]}'"
     end
+
+    # On Mac OS X, if we're not root we need to explicitly tell gem
+    # to do a user install.
+    if (RUBY_PLATFORM =~ /darwin/i) && (Process.euid != 0)
+      cmd << " --user-install"
+    end
+
     puts cmd
     system cmd
   end
