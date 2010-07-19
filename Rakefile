@@ -11,6 +11,7 @@ begin
     gem.homepage = "http://github.com/scottwb/rails_gem_install"
     gem.authors = ["Scott W. Bradley"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.add_development_dependency "rcov", ">= 0.9.8"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
