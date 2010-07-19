@@ -2,6 +2,12 @@
 
 ENV['RAILS_ENV'] ||= 'production'
 
+# On FreeBSD platforms, if we are not running as root it all gem installs will
+# fail unless we tell it to do a user install via the environment.
+if (RUBY_PLATFORM) =~ /freebsd/i && (Process.euid != 0)
+  ENV['RB_USER_INSTALL'] ||= '1'
+end
+
 require 'rubygems'
 require 'rails_gem_install'
 
