@@ -28,9 +28,25 @@ class RailsGemInstaller
   # Parses out any dependency gems listed that are not yet satisified.
   def parse_deps(input)
     matches = input.scan(/\s+-\s+\[ \]\s+(\S+)\s+(\S+\s+[0-9.]+)/) || []
-    matches.map do |match|
+
+    gemspecs = matches.map do |match|
       {:name => match[0], :version => match[1]}
     end
+
+    # NOTE: These gemspecs are gems that are not yet loaded. We don't know if
+    #       they are installed or not, so we don't know for sure if the
+    #       dependency will be met at runtime. So, we'll execute a gem command
+    #       to check to see if these are installed and ignore the ones that
+    #       already are.
+    gemspecs.delete_if do |gemspec|
+      cmd = "gem list #{gemspec[:name]} -i -l"
+      if gemspec[:version]
+        cmd << " -v '#{gemspec[:version]}'"
+      end
+      `#{cmd}` =~ /true/
+    end
+
+    return gemspecs
   end
 
   # Gets the set of required gems that need to be installed.
