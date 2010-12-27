@@ -64,7 +64,7 @@ EOT
  - [I] gdata 
  - [I] responders ~> 0.4.6
  - [I] sanitize = 1.2.1
-    - [ ] nokogiri ~> 1.4.1
+    - [ ] somemissinggem ~> 1.4.1
  - [I] panztel-actionwebservice = 2.3.5
     - [R] actionpack = 2.3.5
     - [R] activerecord = 2.3.5
@@ -73,7 +73,7 @@ EOT
 EOT
         gemspecs.should have(1).gemspec
         gemspecs.first.should have(2).members
-        gemspecs.first[:name].should == 'nokogiri'
+        gemspecs.first[:name].should == 'somemissinggem'
         gemspecs.first[:version].should == '~> 1.4.1'        
       end
     end
