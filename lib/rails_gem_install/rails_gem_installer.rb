@@ -73,7 +73,18 @@ class RailsGemInstaller
     end
 
     puts cmd
-    system cmd
+    exit_code = system(cmd)
+    if !exit_code && (gemspec[:name] =~ /^(.+)\/(.+)$/)
+      # The gem we're shooting for failed and has a slash in it's name,
+      # this is likely because there was a require that listed a path. One way
+      # this happens is when multiple gems like to install to the same
+      # require namespace to act like separate parts of a larger whole. For
+      # example redis and redis-namespace gems. To attempt to handle this,
+      # try the failed a/b gem as a-b.
+      exit_code = install_gem(gemspec.merge(:name => "#{$1}-#{$2}"))
+    end
+
+    return exit_code
   end
 
   # Finds all the gems that need to be installed for this Rails project to
