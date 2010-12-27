@@ -98,6 +98,26 @@ EOT
         gemspecs.first[:name].should == 'gdata'
       end
     end
+
+    context "when there are installed-but-not-loaded dependencies" do
+      it "should not return those gems" do
+        # REVISIT: This assumes you have rspec installed, cuz who doesn't
+        #          have that but is still trying to run specs?
+        gemspecs = subject.parse_deps <<EOT
+ - [I] rmagick 
+ - [I] gdata 
+ - [I] responders ~> 0.4.6
+ - [I] sanitize = 1.2.1
+    - [ ] rspec
+ - [I] panztel-actionwebservice = 2.3.5
+    - [R] actionpack = 2.3.5
+    - [R] activerecord = 2.3.5
+ - [I] fastthread 
+ - [I] jammit = 0.4.4
+EOT
+        gemspecs.should be_empty
+      end
+    end
   end
 
 end
