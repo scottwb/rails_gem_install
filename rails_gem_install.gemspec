@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails_gem_install}
-  s.version = "0.3.3"
+  s.version = "0.3.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Scott W. Bradley"]
-  s.date = %q{2010-12-07}
+  s.date = %q{2010-12-27}
   s.default_executable = %q{rails_gem_install}
   s.description = %q{Installs gem dependencies for a Rails 2 project where `rake gems:install` fails. I.e.: breaks the circular dependencies of requiring Rails and anything your vendored gems/plugins require in order to install these requirements.}
   s.email = %q{scottwb@gmail.com}
@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
      "lib/rails_gem_install.rb",
      "lib/rails_gem_install/rails.rb",
      "lib/rails_gem_install/rails_gem_installer.rb",
+     "rails_gem_install.gemspec",
      "spec/rails_gem_installer_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
